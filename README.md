@@ -1,4 +1,4 @@
-# 16-bit ALU in Verilog
+# 4-bit ALU in Verilog
 
 ## Features
 - Arithmetic: Add, Subtract
