@@ -4,7 +4,7 @@
 - Arithmetic: Add, Subtract
 - Logic: AND, OR, XOR, NOT
 - Shift operations
-- Flags: Carry, Zero, Overflow
+- Flags: Carry, Zero, Overflow, Sign, Parity
 
 ## Tools Used
 - Icarus Verilog
