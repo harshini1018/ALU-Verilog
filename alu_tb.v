@@ -6,7 +6,7 @@ module alu_tb;
 reg [3:0] A, B;
 reg [2:0] sel;
 wire [3:0] out;
-wire carry_out, zero, overflow;
+wire carry_out, zero, overflow , sign, parity ;
 
 // Instantiate ALU
 alu_4bit uut (
@@ -16,12 +16,14 @@ alu_4bit uut (
     .out(out),
     .carry_out(carry_out),
     .zero(zero),
-    .overflow(overflow)
+    .overflow(overflow),
+    .parity(parity),
+    .sign(sign)
 );
 
 initial begin
-    $display("A    B    sel | out carry_out zero overflow");
-    $monitor("%h %h %b | %h %b %b %b", A, B, sel, out, carry_out, zero, overflow);
+    $display("A    B    sel | out carry_out zero overflow parity sign");
+    $monitor("%h %h %b | %h %b %b %b %b %b", A, B, sel, out, carry_out, zero, overflow , parity, sign);
 
     // ADD
     A = 4'b0101; B = 4'b0011; sel = 3'b000; #10;
@@ -39,13 +41,13 @@ initial begin
     A = 4'b1100; B = 4'b1010; sel = 3'b100; #10;
 
     // NOT
-    A = 4'b1100; sel = 3'b101; #10;
+    A = 4'b1100; B = 4'b0000; sel = 3'b101; #10;
 
     // SHIFT LEFT
-    A = 4'b1011; sel = 3'b110; #10;
+    A = 4'b1011; B = 4'b0000; sel = 3'b110; #10;
 
     // SHIFT RIGHT
-    A = 4'b1011; sel = 3'b111; #10;
+    A = 4'b1011; B = 4'b0000; sel = 3'b111; #10;
 
     // ADD overflow (positive + positive → negative)
     A = 4'b0111; B = 4'b0001; sel = 3'b000; #10;
@@ -60,10 +62,10 @@ initial begin
     A = 4'b0011; B = 4'b0011; sel = 3'b001; #10;
 
     // left shift MSB
-    A = 4'b1000; sel = 3'b110; #10; 
+    A = 4'b1000; B = 4'b0000; sel = 3'b110; #10; 
 
      // right shift LSB
-    A = 4'b0001; sel = 3'b111; #10;
+    A = 4'b0001; B = 4'b0000;  sel = 3'b111; #10;
 
 
     $finish;
