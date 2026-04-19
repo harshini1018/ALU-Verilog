@@ -4,12 +4,19 @@
     output reg [3:0] out,
     output reg carry_out,
     output zero,
-    output reg overflow
+    output reg overflow ,
+    output  sign ,
+    output  parity
 );
 
 // Zero flag
 assign zero = (out == 4'b0000);
+// Sign flag
+assign sign = out[3]; 
+// Parity flag
+assign parity = ~(out[0]^out[1]^out[2]^out[3]);
 
+  
 always @(*) begin
     carry_out = 0;
     overflow = 0;
@@ -42,7 +49,9 @@ always @(*) begin
 
         default: out = 4'b0000;
     endcase
+ 
 end
-
+  assign sign = out[3];
+ assign parity = out[0]^out[1]^out[2]^out[3];
 endmodule
  
